@@ -7,12 +7,12 @@ releases:
   - name: blobstore-perf
     version: latest
 
-blobstore: (( merge ))
+template_only: (( merge ))
 
 instance_groups:
   - name: blobstore
     instances: 1
-    vm_type: (( blobstore.instance_type ))
+    vm_type: (( template_only.blobstore.instance_type ))
     azs: [z1]
     networks: [{name: private}]
     stemcell: trusty
@@ -21,8 +21,16 @@ instance_groups:
         release: blobstore-perf
         properties:
           blobstore:
-            compression: false
-            encryption: false
+            compression: (( template_only.blobstore.gzip ))
+  - name: downloader
+    instances: 1
+    vm_type: (( template_only.downloader.instance_type ))
+    azs: [z1]
+    networks: [{name: private}]
+    stemcell: trusty
+    jobs:
+      - name: downloader
+        release: blobstore-perf
 
 properties:
   aws:

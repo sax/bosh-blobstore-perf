@@ -6,3 +6,27 @@ vm_types:
       ephemeral_disk:
         size: 1024
         type: gp2
+  - name: m4.4xlarge
+    cloud_properties:
+      instance_type: m4.4xlarge
+      ephemeral_disk:
+        size: 1024
+        type: gp2
+  - name: m4.10xlarge
+    cloud_properties:
+      instance_type: m4.10xlarge
+      ephemeral_disk:
+        size: 1024
+        type: gp2
+  - name: c4.large
+    cloud_properties:
+      instance_type: c4.large
+      ephemeral_disk:
+        size: 1024
+        type: gp2
+  - name: c4.4xlarge
+    cloud_properties:
+      instance_type: c4.4xlarge
+      ephemeral_disk:
+        size: 1024
+        type: gp2

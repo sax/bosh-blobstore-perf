@@ -1,0 +1,9 @@
+---
+name: downloader
+
+templates:
+  download.erb: bin/download
+
+consumes:
+  - name: webdav
+    type: blobstore

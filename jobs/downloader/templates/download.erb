@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+TARGET=<%= link('webdav').instances.first.address %>
+
+apt-get -y install siege
+
+mkdir -p /data
+
+pushd /data > /dev/null
+
+  fallocate -l 500M thing.file
+  curl -T thing.file http://${TARGET}/thing.file
+
+  siege -c 5 -b -r 25 http://${TARGET}/thing.file
+
+popd > /dev/null

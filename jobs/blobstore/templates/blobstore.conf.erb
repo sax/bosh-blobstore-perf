@@ -3,6 +3,8 @@ server {
   server_name blobstore.int;
   root        /var/vcap/store/shared/;
 
+  client_max_body_size 1000M;
+
   access_log /var/vcap/sys/log/blobstore/public_access.log;
   error_log  /var/vcap/sys/log/blobstore/public_error.log;
 

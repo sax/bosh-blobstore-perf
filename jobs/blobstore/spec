@@ -9,14 +9,14 @@ templates:
   mime.types:           config/mime.types
   write_users.erb:      config/write_users
 
+provides:
+  - name: webdav
+    type: blobstore
+
 packages:
   - nginx
 
 properties:
   blobstore.compression:
     description: "Configure WebDAV with compression"
-    default: false
-
-  blobstore.encryption:
-    description: "Configure WebDAV with encryption"
     default: false

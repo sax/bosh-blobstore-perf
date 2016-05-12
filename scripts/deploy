@@ -22,6 +22,8 @@ sed -i '' 's/vm_types:/vm_types:\
 ${RELEASE_DIR}/scripts/generate-cloud-config \
  > "${RELEASE_DIR}/deployments/cloud.yml"
 
+sed -i '' "s/1024/500/g" "${DEPLOYMENTS_DIR}/cloud.yml"
+
 bosh update cloud-config deployments/cloud.yml
 bosh deployment "${DEPLOYMENTS_DIR}/deploy.yml"
 
@@ -29,3 +31,5 @@ bosh --parallel 10 sync blobs
 bosh create release --name blobstore-perf --force
 bosh -n upload release
 bosh -d ${RELEASE_DIR}/deployments/deploy.yml -n deploy
+
+bosh cleanup

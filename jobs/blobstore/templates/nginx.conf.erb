@@ -27,7 +27,7 @@ http {
 
   keepalive_timeout 75 20;
 
-  gzip                 on;
+  gzip                 <%= p('blobstore.compression') ? 'on' : 'off' %>;
   gzip_min_length      1250;
   gzip_buffers         16 8k;
   gzip_comp_level      2;
