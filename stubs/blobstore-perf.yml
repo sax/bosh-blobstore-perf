@@ -3,91 +3,34 @@ name: blobstore-perf
 
 director_uuid: (( merge director_uuid ))
 
-compilation:
-  cloud_properties:
-    name: random
-  network: default
-  reuse_compilation_vms: true
-  workers: 1
-
 releases:
   - name: blobstore-perf
     version: latest
 
-subnet_id: (( merge ))
-
-networks:
-  - name: default
-    type: manual
-    subnets:
-      - range: 10.0.16.0/20
-        dns:
-          - 10.0.16.2
-        cloud_properties:
-          subnet: (( subnet_id ))
-        gateway: 10.0.16.1
-        static:
-          - 10.0.16.5
-
-resource_pools:
-  - name: blobstore
-    network: default
-    stemcell:
-      name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
-      version: latest
-    cloud_properties:
-      instance_type: m4.large
-      availability_zone: us-east-1a
-  # - name: downloader
-  #   network: default
-  #   stemcell:
-  #     name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
-  #     version: latest
-  #   cloud_properties:
-  #     instance_type: m4.10xlarge
-  #     availability_zone: us-east-1a
-
 blobstore: (( merge ))
 
-jobs:
+instance_groups:
   - name: blobstore
     instances: 1
-    lifecycle: service
-    properties:
-      blobstore:
-        compression: false
-        encryption: false
-    networks:
-      - name: default
-        static_ips:
-          - 10.0.16.5
-    resource_pool:
-      availability_zone: us-east-1a
+    vm_type: (( blobstore.instance_type ))
+    azs: [z1]
+    networks: [{name: private}]
     stemcell: trusty
-    templates:
+    jobs:
       - name: blobstore
         release: blobstore-perf
-    vm_type: (( blobstore.instance_type ))
-  # - name: downloader
-  #   templates:
-  #     - name: downloader
-  #       release: blobstore-perf
-  #   lifecycle: errand
-  #   properties:
-  #     downloader:
-  #       total_requests: 25
-  #       concurrency: 5
-  #   resource_pool: blobstore
-  #   instances: 1
-  #   networks:
-  #     - name: default
-  #       static_ips:
-  #         - 10.0.16.101
+        properties:
+          blobstore:
+            compression: false
+            encryption: false
+        templates:
+          - name: blobstore
+            release: blobstore-perf
 
 properties:
   aws:
-    access_key_id: (( access_key_id ))
-    secret_access_key: (( secret_access_key ))
+    access_key_id: AWS_KEY_ID
+    secret_access_key: SECRET_ACCESS_KEY
     default_key_name: bosh
     default_security_groups: [bosh]
     region: us-east-1a
@@ -95,7 +38,7 @@ properties:
 stemcells:
   - alias: trusty
     os: ubuntu-trusty
-    version: 3232.2
+    version: 3232.3
 
 update:
   canaries: 1

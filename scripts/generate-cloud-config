@@ -12,4 +12,4 @@ which spiff > /dev/null 2>&1 || {
 
 readonly ROOT_DIR=$(cd "$(dirname "$0")/.." && pwd)
 
-spiff merge "${ROOT_DIR}/stubs/base-cloud.yml" "${ROOT_DIR}/stubs/blobstore-perf.yml" "${ROOT_DIR}/stubs/secrets.yml"
+spiff merge "${ROOT_DIR}/deployments/bbl-cloud-config.yml" "${ROOT_DIR}/stubs/base-cloud.yml" "${ROOT_DIR}/stubs/blobstore-perf.yml" "${ROOT_DIR}/stubs/secrets.yml"
