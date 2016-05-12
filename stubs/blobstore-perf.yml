@@ -23,9 +23,6 @@ instance_groups:
           blobstore:
             compression: false
             encryption: false
-        templates:
-          - name: blobstore
-            release: blobstore-perf
 
 properties:
   aws:
