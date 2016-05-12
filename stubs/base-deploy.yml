@@ -1,0 +1,8 @@
+---
+name: (( merge ))
+director_uuid: (( merge ))
+jobs: (( merge ))
+properties: (( merge ))
+releases: (( merge ))
+stemcells: (( merge ))
+update: (( merge ))

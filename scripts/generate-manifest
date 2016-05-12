@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -ef -o pipefail
+
+set -u
+
+# Check for spiff installation
+which spiff > /dev/null 2>&1 || {
+  echo "Aborted. Please install spiff by following https://github.com/cloudfoundry-incubator/spiff#installation" 1>&2
+  exit 1
+}
+
+readonly ROOT_DIR=$(cd "$(dirname "$0")/.." && pwd)
+
+spiff merge "${ROOT_DIR}/stubs/base-deploy.yml" "${ROOT_DIR}/stubs/blobstore-perf.yml" "${ROOT_DIR}/stubs/secrets.yml"

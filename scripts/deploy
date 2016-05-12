@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set +e
+
+SCRIPT_DIR=$(dirname $0)
+RELEASE_DIR=${RELEASE_DIR:-$SCRIPT_DIR/..}
+
+mkdir -p "${RELEASE_DIR}/deployments"
+
+${RELEASE_DIR}/scripts/generate-manifest \
+ > "${RELEASE_DIR}/deployments/deploy.yml"
+
+${RELEASE_DIR}/scripts/generate-cloud-config \
+ > "${RELEASE_DIR}/deployments/cloud.yml"
+
+bosh update cloud-config deployments/cloud.yml
+bosh deployment "${RELEASE_DIR}/deployments/deploy.yml"
+
+bosh --parallel 10 sync blobs
+bosh create release --name blobstore-perf --force
+bosh -n upload release
+bosh -d ${RELEASE_DIR}/deployments/deploy.yml -n deploy

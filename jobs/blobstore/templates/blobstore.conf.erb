@@ -1,0 +1,16 @@
+server {
+  listen      80 default_server;
+  server_name blobstore.int;
+  root        /var/vcap/store/shared/;
+
+  access_log /var/vcap/sys/log/blobstore/public_access.log;
+  error_log  /var/vcap/sys/log/blobstore/public_error.log;
+
+  location / {
+    root /data/www;
+    client_body_temp_path /data/client_temp;
+    dav_methods PUT DELETE MKCOL COPY MOVE;
+    create_full_put_path on;
+    dav_access group:rw all:r;
+  }
+}

@@ -1,0 +1,22 @@
+---
+# azs:
+#   - name: z1
+#     cloud_properties:
+#       availability_zone: us-east-1a
+
+vm_types:
+  - name: m4.large
+    cloud_properties:
+      instance_type: m4.large
+      ephemeral_disk:
+        size: 500
+        type: standard
+
+networks: (( merge ))
+
+compilation:
+  workers: 1
+  reuse_compilation_vms: true
+  # az: z1
+  vm_type: m4.large
+  network: default
