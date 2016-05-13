@@ -11,6 +11,6 @@ pushd /data > /dev/null
   fallocate -l 500M thing.file
   curl -T thing.file http://${TARGET}/thing.file
 
-  siege -c 5 -b -r 25 http://${TARGET}/thing.file
+  siege -c <%= p('downloader.concurrency') %> -b -r <%= p('downloader.per_thread') %> http://${TARGET}/thing.file
 
 popd > /dev/null

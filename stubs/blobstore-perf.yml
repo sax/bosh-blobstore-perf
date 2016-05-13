@@ -31,6 +31,10 @@ instance_groups:
     jobs:
       - name: downloader
         release: blobstore-perf
+        properties:
+          downloader:
+            concurrency: (( template_only.downloader.concurrency ))
+            per_thread: (( template_only.downloader.per_thread ))
 
 properties:
   aws:

@@ -7,3 +7,11 @@ templates:
 consumes:
   - name: webdav
     type: blobstore
+
+properties:
+  downloader.concurrency:
+    description: "How many concurrent threads to download"
+    default: 1
+  downloader.per_thread:
+    description: "How many concurrent threads to download"
+    default: 1
