@@ -10,6 +10,13 @@ TMP_DIR=$DATA/tmp/uploads
 mkdir -p /data/www
 mkdir -p /data/client_temp
 
+if [ ! -f /data/www/droplet.zip ]; then
+  curl https://s3.amazonaws.com/cf-runtime1-temp-blobstore/droplet.zip -o /data/www/droplet0.zip
+  cp /data/www/droplet0.zip /data/www/droplet1.zip
+  cp /data/www/droplet0.zip /data/www/droplet2.zip
+  cp /data/www/droplet0.zip /data/www/droplet3.zip
+fi
+
 chown -R vcap:vcap /data
 
 function pid_is_running() {
@@ -120,7 +127,7 @@ case $1 in
 
     exec /var/vcap/packages/nginx/sbin/nginx \
       -c /var/vcap/jobs/blobstore/config/nginx.conf \
-      -g "worker_processes 4;" \
+      -g "worker_processes 40;" \
       >>$LOG_DIR/nginx.stdout.log 2>>$LOG_DIR/nginx.stderr.log
     ;;
 

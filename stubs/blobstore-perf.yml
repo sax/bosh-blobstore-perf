@@ -23,7 +23,7 @@ instance_groups:
           blobstore:
             compression: (( template_only.blobstore.gzip ))
   - name: downloader
-    instances: 1
+    instances: 3
     vm_type: (( template_only.downloader.instance_type ))
     azs: [z1]
     networks: [{name: private}]

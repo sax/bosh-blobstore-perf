@@ -6,6 +6,8 @@ templates:
   dns_health_check.erb: bin/dns_health_check
   nginx.conf.erb:       config/nginx.conf
   blobstore.conf.erb:   config/sites/blobstore.conf
+  blobstore.crt:        config/certs/blobstore.crt
+  blobstore.key:        config/certs/blobstore.key
   mime.types:           config/mime.types
   write_users.erb:      config/write_users
 

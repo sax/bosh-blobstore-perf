@@ -1,6 +1,28 @@
 server {
+  listen      443 ssl;
+  server_name blobstore.int blobbyblob.example.com;
+  root        /var/vcap/store/shared/;
+
+  ssl_certificate     /var/vcap/jobs/blobstore/config/certs/blobstore.crt;
+  ssl_certificate_key /var/vcap/jobs/blobstore/config/certs/blobstore.key;
+
+  client_max_body_size 1000M;
+
+  access_log /var/vcap/sys/log/blobstore/public_access.log;
+  error_log  /var/vcap/sys/log/blobstore/public_error.log;
+
+  location / {
+    root /data/www;
+    client_body_temp_path /data/client_temp;
+    dav_methods PUT DELETE MKCOL COPY MOVE;
+    create_full_put_path on;
+    dav_access group:rw all:r;
+  }
+}
+
+server {
   listen      80 default_server;
-  server_name blobstore.int;
+  server_name blobstore.int blobbyblob.example.com;
   root        /var/vcap/store/shared/;
 
   client_max_body_size 1000M;
